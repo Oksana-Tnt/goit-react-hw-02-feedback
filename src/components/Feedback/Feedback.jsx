@@ -6,17 +6,44 @@ import {
   StatisticList,
   Title,
 } from './Feedback.styled';
-import { Statistics } from './Statistics';
-import { FeedbackOptions } from './FeedbackOptions';
-import { Notification } from './Notification';
+import { Statistics } from '../Statistics/Statistics';
+import { FeedbackOptions } from '../FeedbackOptions/FeedbackOptions';
+import { Notification } from '../Notification/Notification';
+import { Section } from 'components/Section/Section';
+
 
 export class Feedback extends React.Component {
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    feedback: false,
+    feedbackexist: false,
   };
+
+ feedbackOptions = [
+    {id:1, feedback:"good"},
+    {id:2, feedback:"neutral"},
+    {id:3, feedback:"bad"},
+  ];
+
+  onLeaveFeedback = (feedback)=>{
+    
+    this.setState(prevState => {
+   
+      if(prevState.hasOwnProperty(feedback)){
+        // console.log(prevState[feedback]+1);
+        return{
+          feedback : prevState[feedback]+1,
+          feedbackexist:true,
+        }
+       
+      }
+    }    
+  
+      
+  );  
+  }
+
 
   IncrementGoodFeedback = () => {
     this.setState(prevState => {
@@ -49,21 +76,22 @@ export class Feedback extends React.Component {
   render() {
     return (
       <Container>
-        <FeedbackOptions
-          onGoodFeedback={this.IncrementGoodFeedback}
-          onNeutralFeedback={this.IncrementNeutralFeedback}
-          onBadFeedback={this.IncrementBadFeedback}
-        />
-
-        {this.state.feedback ? (
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
+        <Section title="Please, leave feedback">
+          <FeedbackOptions options={this.feedbackOptions} onleaveFeedback={this.onLeaveFeedback}
+           
           />
-        ) : (
-          <Notification />
-        )}
+        </Section>
+        <Section title="Statistics">
+          {this.state.feedbackexist ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+            />
+          ) : (
+            <Notification />
+          )}
+        </Section>
       </Container>
     );
   }
