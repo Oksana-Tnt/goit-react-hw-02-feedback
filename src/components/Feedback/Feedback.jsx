@@ -1,33 +1,47 @@
 import React from 'react';
-import { Button, ButtonList, Container, StatisticList, Title } from './Feedback.styled';
+import {
+  Button,
+  ButtonList,
+  Container,
+  StatisticList,
+  Title,
+} from './Feedback.styled';
+import { Statistics } from './Statistics';
+import { FeedbackOptions } from './FeedbackOptions';
+import { Notification } from './Notification';
 
 export class Feedback extends React.Component {
-
   state = {
     good: 0,
     neutral: 0,
-    bad: 0
-  }
-  IncrementGoodFeedback = ()=>{
-    this.setState(prevState=>{
-      return{
-        good:prevState.good +1,
+    bad: 0,
+    feedback: false,
+  };
+
+  IncrementGoodFeedback = () => {
+    this.setState(prevState => {
+      return {
+        good: prevState.good + 1,
+        feedback: true,
       };
     });
   };
 
-  IncrementNeutralFeedback = ()=>{
-    this.setState(prevState=>{
-      return{
-        neutral:prevState.neutral +1,
+  IncrementNeutralFeedback = event => {
+    console.log(event);
+    this.setState(prevState => {
+      return {
+        neutral: prevState.neutral + 1,
+        feedback: true,
       };
     });
   };
 
-  IncrementBadFeedback = ()=>{
-    this.setState(prevState=>{
-      return{
-        bad:prevState.bad +1,
+  IncrementBadFeedback = () => {
+    this.setState(prevState => {
+      return {
+        bad: prevState.bad + 1,
+        feedback: true,
       };
     });
   };
@@ -35,26 +49,22 @@ export class Feedback extends React.Component {
   render() {
     return (
       <Container>
-        <Title>Please, leave feedback</Title>
-        <ButtonList>
-          <li>
-            <Button onClick={this.IncrementGoodFeedback}>Good</Button>
-          </li>
-          <li>
-            <Button onClick={this.IncrementNeutralFeedback}>Neutral</Button>
-          </li>
-          <li>
-            <Button onClick={this.IncrementBadFeedback}>Bad</Button>
-          </li>
-        </ButtonList>
-        <Title>Statistics</Title>
-        <StatisticList>
-          <li>Good:{this.state.good}</li>
-          <li>Neutral:{this.state.neutral}</li>
-          <li>Bad:{this.state.bad}</li>
-        </StatisticList>
+        <FeedbackOptions
+          onGoodFeedback={this.IncrementGoodFeedback}
+          onNeutralFeedback={this.IncrementNeutralFeedback}
+          onBadFeedback={this.IncrementBadFeedback}
+        />
+
+        {this.state.feedback ? (
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+          />
+        ) : (
+          <Notification />
+        )}
       </Container>
     );
   }
 }
-
