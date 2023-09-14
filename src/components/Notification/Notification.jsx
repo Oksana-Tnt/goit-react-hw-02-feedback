@@ -1,8 +1,8 @@
 import React from 'react';
-import { Message } from './Notification.style';
+import { Message } from './Notification.styled';
 
-export const Notification = () => (
+export const Notification = ({ message }) => (
   <>
-    <Message>There is no feedback</Message>
+    <Message>{message}</Message>
   </>
 );

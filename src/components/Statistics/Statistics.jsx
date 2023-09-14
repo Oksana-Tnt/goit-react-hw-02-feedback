@@ -1,14 +1,18 @@
 import React from 'react';
 import { StatisticList } from './Statistics.styled';
 
-
-export const Statistics = ({ good, neutral, bad }) => (
-  <>
-
+export const Statistics = ({ options, totalFeedback, positivePercentage }) => {
+  return (
     <StatisticList>
-      <li>Good:{good}</li>
-      <li>Neutral:{neutral}</li>
-      <li>Bad:{bad}</li>
+      {Object.keys(options).map((key, ind) => {
+        return (
+          <li key={ind}>
+            {key} : {options[key]}
+          </li>
+        );
+      })}
+      <li>Total feedback: {totalFeedback}</li>
+      <li>Positive percentage: {positivePercentage}</li>
     </StatisticList>
-  </>
-);
+  );
+};

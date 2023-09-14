@@ -1,18 +1,16 @@
 import React from 'react';
 import { Button, ButtonList } from './FeedbackOptions.styled';
 
-
-export const FeedbackOptions = ({options, onleaveFeedback})=> (
-   
-  <>
-   
+export const FeedbackOptions = ({ options, onleaveFeedback }) => {
+  return (
     <ButtonList>
-      {options.map(({id, feedback})=>(
-      <li>
-        <Button key={id} onClick={()=>onleaveFeedback(feedback)}>{feedback}</Button>
-      </li>)
-      )}     
-      
+      {Object.keys(options).map((key, ind) => {
+        return (
+          <Button key={ind} onClick={() => onleaveFeedback(key)}>
+            {key}
+          </Button>
+        );
+      })}
     </ButtonList>
-  </>
-);
+  );
+};
