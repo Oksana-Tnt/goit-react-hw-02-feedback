@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  ButtonList,
-  Container,
-  StatisticList,
-  Title,
-} from './Feedback.styled';
+import { Container } from './Feedback.styled';
 import { Statistics } from '../Statistics/Statistics';
 import { FeedbackOptions } from '../FeedbackOptions/FeedbackOptions';
 import { Notification } from '../Notification/Notification';
